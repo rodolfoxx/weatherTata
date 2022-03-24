@@ -58,7 +58,7 @@ public class WeatherService implements IWeatherService {
     }
 
 
-    public static float celsiusAFahrenheit(float celsius) {
+    public float celsiusAFahrenheit(float celsius) {
         return (celsius * 1.8f) + 32;
     }
 
