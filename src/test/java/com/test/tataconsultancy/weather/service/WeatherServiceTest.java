@@ -52,7 +52,6 @@ class WeatherServiceTest {
 
         WeatherDetail weatherDetail = new WeatherDetail();
         weatherDetail.setLattLong("test");
-
         when(mockRepository.connection("test","test")).thenReturn(weatherArray);
         when(mockRepository.connectionDetail("test","test")).thenReturn(weatherDetail);
 
@@ -62,8 +61,19 @@ class WeatherServiceTest {
     @Test
     void dataWeatherDetail() {
 
+        WeatherDetail weatherDetail = new WeatherDetail();
+        weatherDetail.setLattLong("test");
+
+        ConsolidatedWeather test = new  ConsolidatedWeather();
+        List<ConsolidatedWeather> consolidate = new ArrayList<>();
+        test.setWeatherStateName("test");
+
+        consolidate.add(test);
+
         when(mockRepository.connectionDetail(Mockito.any(),Mockito.any())).thenReturn(mockWeatherDetail);
-        when(mockWeatherDetail.getConsolidatedWeather()).thenReturn(Mockito.any());
-        ConsolidatedWeather consolidate2 = weatherService.dataWeatherDetail(111L);
+        when(mockWeatherDetail.getConsolidatedWeather()).thenReturn(consolidate);
+        Assertions.assertThat(consolidate.size() -1).isNotNull();
+        ConsolidatedWeather consolidateEnd = weatherService.dataWeatherDetail(111L);;
+        Assertions.assertThat(consolidateEnd).isNotNull();
     }
 }
