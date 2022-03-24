@@ -1,27 +1,29 @@
 package com.test.tataconsultancy.weather.service;
 
-import com.test.tataconsultancy.weather.dto.ConsolidatedWeather;
-import com.test.tataconsultancy.weather.dto.WeatherDetail;
-import com.test.tataconsultancy.weather.dto.WeatherRequest;
-import com.test.tataconsultancy.weather.dto.Weather;
+import com.test.tataconsultancy.weather.dto.*;
 import com.test.tataconsultancy.weather.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class WeatherService implements IWeatherService {
 
-    @Autowired
+    private final
     Repository repository;
     @Value("${weather.url.data}")
     public String urlWeather;
     @Value("${weather.url.detail}")
     public String urlWeatherDetail;
 
-    public ConsolidatedWeather dataWeather(WeatherRequest city) {
+    public WeatherService(Repository repository) {
+        this.repository = repository;
+    }
+
+    public WeatherResponse dataWeather(WeatherRequest city) {
 
             Weather[] result = repository.
                     connection(urlWeather, city.getCity());
@@ -30,13 +32,34 @@ public class WeatherService implements IWeatherService {
 
     }
 
-    public ConsolidatedWeather dataWeatherDetail(Long woeid) {
+    public WeatherResponse dataWeatherDetail(Long woeid) {
 
         WeatherDetail result = repository.
                 connectionDetail(urlWeatherDetail,woeid);
-        return  result.getConsolidatedWeather().
-                get(result.getConsolidatedWeather().size() -1);
 
+        WeatherResponse response = new WeatherResponse();
+        List<Temperature> data = new ArrayList<>();
+
+        for(ConsolidatedWeather weather :result.getConsolidatedWeather()) {
+
+            Temperature temperature = new Temperature();
+
+            temperature.setCelcius_temp(String.valueOf(weather.getTheTemp()));
+            temperature.setFarenheit_temp(String.valueOf(celsiusAFahrenheit
+                    (weather.getTheTemp().floatValue())));
+
+            data.add(temperature);
+
+        }
+
+        response.setTemperature(data);
+
+        return response;
+    }
+
+
+    public static float celsiusAFahrenheit(float celsius) {
+        return (celsius * 1.8f) + 32;
     }
 
 }

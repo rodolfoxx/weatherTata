@@ -1,10 +1,6 @@
 package com.test.tataconsultancy.weather.service;
 
-import com.test.tataconsultancy.weather.controller.WeatherController;
-import com.test.tataconsultancy.weather.dto.ConsolidatedWeather;
-import com.test.tataconsultancy.weather.dto.Weather;
-import com.test.tataconsultancy.weather.dto.WeatherDetail;
-import com.test.tataconsultancy.weather.dto.WeatherRequest;
+import com.test.tataconsultancy.weather.dto.*;
 import com.test.tataconsultancy.weather.repository.Repository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,10 +48,11 @@ class WeatherServiceTest {
 
         WeatherDetail weatherDetail = new WeatherDetail();
         weatherDetail.setLattLong("test");
+
         when(mockRepository.connection("test","test")).thenReturn(weatherArray);
         when(mockRepository.connectionDetail("test","test")).thenReturn(weatherDetail);
 
-        ConsolidatedWeather consolidate = weatherService.dataWeather(weather);
+        WeatherResponse consolidate = weatherService.dataWeather(weather);
     }
 
     @Test
@@ -73,7 +70,7 @@ class WeatherServiceTest {
         when(mockRepository.connectionDetail(Mockito.any(),Mockito.any())).thenReturn(mockWeatherDetail);
         when(mockWeatherDetail.getConsolidatedWeather()).thenReturn(consolidate);
         Assertions.assertThat(consolidate.size() -1).isNotNull();
-        ConsolidatedWeather consolidateEnd = weatherService.dataWeatherDetail(111L);;
+        WeatherResponse consolidateEnd = weatherService.dataWeatherDetail(111L);;
         Assertions.assertThat(consolidateEnd).isNotNull();
     }
 }
