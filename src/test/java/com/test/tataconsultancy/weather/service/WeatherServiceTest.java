@@ -46,15 +46,22 @@ class WeatherServiceTest {
         Weather weatherData = new  Weather();
         weatherData.setWoeid(1111L);
 
-        Weather[] weatherArray = new  Weather[0];
+        Weather[] weatherArray = new  Weather[1];
+        weatherArray[0] = weatherData;
+
+        ConsolidatedWeather testW = new  ConsolidatedWeather();
+        List<ConsolidatedWeather> consolidate = new ArrayList<>();
+
+        testW.setWeatherStateName("test");
+        consolidate.add(testW);
 
         WeatherDetail weatherDetail = new WeatherDetail();
         weatherDetail.setLattLong("test");
+        weatherDetail.setConsolidatedWeather(consolidate);
 
         when(mockRepository.connection("test","test")).thenReturn(weatherArray);
         when(mockRepository.connectionDetail("test","test")).thenReturn(weatherDetail);
-
-        WeatherResponse consolidate = weatherService.dataWeather(weather);
+        when(mockRepository.connectionDetail("test", 1111L)).thenReturn(weatherDetail);
     }
 
     @Test
