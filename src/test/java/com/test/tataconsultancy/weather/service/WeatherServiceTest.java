@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -79,7 +78,7 @@ class WeatherServiceTest {
 
         when(mockRepository.connectionDetail(Mockito.any(),Mockito.any())).thenReturn(mockWeatherDetail);
         when(mockWeatherDetail.getConsolidatedWeather()).thenReturn(consolidate);
-        when(mockWeatherService.celsiusAFahrenheit(Mockito.anyFloat())).thenReturn(Mockito.anyFloat());
+        when(mockWeatherService.celsiusAFahrenheit(111L)).thenReturn(11.2F);
         WeatherResponse consolidateEnd = weatherService.dataWeatherDetail(111L);
         Assertions.assertThat(consolidateEnd).isNotNull();
     }
