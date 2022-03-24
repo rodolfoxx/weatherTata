@@ -1,6 +1,11 @@
 package com.test.tataconsultancy.weather.service;
 
-import com.test.tataconsultancy.weather.dto.*;
+import com.test.tataconsultancy.weather.dto.Weather;
+import com.test.tataconsultancy.weather.dto.WeatherRequest;
+import com.test.tataconsultancy.weather.dto.WeatherResponse;
+import com.test.tataconsultancy.weather.dto.ConsolidatedWeather;
+import com.test.tataconsultancy.weather.dto.WeatherDetail;
+import com.test.tataconsultancy.weather.dto.Temperature;
 import com.test.tataconsultancy.weather.repository.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;

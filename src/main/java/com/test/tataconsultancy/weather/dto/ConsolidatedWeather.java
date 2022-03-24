@@ -3,7 +3,6 @@ package com.test.tataconsultancy.weather.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("unused")
 public class ConsolidatedWeather {
 
     @JsonProperty("air_pressure")

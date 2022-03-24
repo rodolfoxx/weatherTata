@@ -1,6 +1,5 @@
 package com.test.tataconsultancy.weather.controller;
 
-import com.test.tataconsultancy.weather.dto.ConsolidatedWeather;
 import com.test.tataconsultancy.weather.dto.WeatherRequest;
 import com.test.tataconsultancy.weather.dto.WeatherResponse;
 import com.test.tataconsultancy.weather.service.IWeatherService;
